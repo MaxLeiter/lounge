@@ -188,9 +188,9 @@ module.exports = {
 		// Channels
 		//
 		// @type     string
-		// @default  "#foo, #thelounge"
+		// @default  "#thelounge"
 		//
-		join: "#foo, #thelounge"
+		join: "#thelounge"
 	},
 
 	//
