@@ -259,6 +259,17 @@ $(function() {
 		return msg;
 	}
 
+	// http://stackoverflow.com/a/13419367/1739985
+	function parseQuery() {
+		var query = {};
+		var a = document.location.search.substr(1).split("&");
+		for (var i = 0; i < a.length; i++) {
+			var b = a[i].split("=");
+			query[decodeURIComponent(b[0])] = decodeURIComponent(b[1] || "");
+		}
+		return query;
+	}
+
 	function buildChannelMessages(channel, messages) {
 		return messages.reduce(function(docFragment, message) {
 			docFragment.append(buildChatMessage({
@@ -992,6 +1003,22 @@ $(function() {
 				return false;
 			}
 		});
+	});
+
+	windows.on("show", "#connect", function() {
+		var params = parseQuery();
+		// Possible parameters:  name, host, port, password, tls, nick, username, realname, join
+		for (var key in params) {
+			var value = params[key].toLowerCase();
+			var element = $("#connect input[name=" + key + "]");
+
+			if (element.is("input[type='checkbox']")) {
+				element.prop("checked", value === "true" ? true : false);
+			} else {
+				element.val(value);
+			}
+
+		}
 	});
 
 	windows.on("show", "#settings", updateDesktopNotificationStatus);
