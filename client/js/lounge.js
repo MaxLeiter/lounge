@@ -14,6 +14,7 @@ $(function() {
 		"/invite",
 		"/join",
 		"/kick",
+		"/ison",
 		"/leave",
 		"/mode",
 		"/msg",
@@ -942,6 +943,14 @@ $(function() {
 		var target = self.data("target");
 		if (!target) {
 			return;
+		}
+
+		var targetTitle = self.data("title");
+		if (targetTitle.indexOf("#") === -1 && !self.hasClass("lobby")) { // no # or .lobby, means it's a PM
+			socket.emit("input", {
+				target: chat.data("id"),
+				text: "/ison " + targetTitle
+			});
 		}
 
 		chat.data(

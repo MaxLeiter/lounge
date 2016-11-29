@@ -42,6 +42,7 @@ var inputs = [
 	"connect",
 	"disconnect",
 	"invite",
+	"ison",
 	"kick",
 	"mode",
 	"nick",
