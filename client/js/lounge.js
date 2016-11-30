@@ -951,6 +951,13 @@ $(function() {
 				target: chat.data("id"),
 				text: "/ison " + targetTitle
 			});
+
+			socket.on("ison") {
+				
+			}
+
+
+
 		}
 
 		chat.data(
