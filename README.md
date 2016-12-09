@@ -1,4 +1,7 @@
 # The Lounge
+<p align="center">
+	<img src="https://raw.githubusercontent.com/thelounge/thelounge.github.io/master/img/screenshots/example_css.png" width="600" height="400" />
+</p>
 
 [![#thelounge IRC channel on freenode](https://img.shields.io/badge/freenode-%23thelounge-BA68C8.svg)](https://avatar.playat.ch:1000/)
 [![npm version](https://img.shields.io/npm/v/thelounge.svg)](https://www.npmjs.org/package/thelounge)
