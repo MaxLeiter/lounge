@@ -205,178 +205,193 @@
 					</form>
 				</div>
 				<div id="settings" class="window">
+						<div class="tab">
+							<button class="tab-button active">Messages</button>
+							<button class="tab-button">Visuals</button>
+							<button class="tab-button">Notifications</button>
+							{{#unless public}}
+							<button class="tab-button">Account</button>
+							{{/unless}}
+						</div>
 					<div class="header">
 						<button class="lt" aria-label="Toggle channel list"></button>
 					</div>
 					<div class="container">
 						<div class="row">
-							<div class="col-sm-12">
-								<h1 class="title">Settings</h1>
-							</div>
-							<div class="col-sm-12">
-								<h2>Messages</h2>
-							</div>
-							<div class="col-sm-6">
-								<label class="opt">
-									<input type="checkbox" name="join">
-									Show joins
-								</label>
-							</div>
-							<div class="col-sm-6">
-								<label class="opt">
-									<input type="checkbox" name="motd">
-									Show <abbr title="Message Of The Day">MOTD</abbr>
-								</label>
-							</div>
-							<div class="col-sm-6">
-								<label class="opt">
-									<input type="checkbox" name="part">
-									Show parts
-								</label>
-							</div>
-							<div class="col-sm-6">
-								<label class="opt">
-									<input type="checkbox" name="nick">
-									Show nick changes
-								</label>
-							</div>
-							<div class="col-sm-6">
-								<label class="opt">
-									<input type="checkbox" name="mode">
-									Show mode
-								</label>
-							</div>
-							<div class="col-sm-6">
-								<label class="opt">
-									<input type="checkbox" name="quit">
-									Show quits
-								</label>
-							</div>
-							<div class="col-sm-6">
-								<label class="opt">
-									<input type="checkbox" name="showSeconds">
-									Show seconds in timestamp
-								</label>
-							</div>
-							<div class="col-sm-12">
-								<h2>Visual Aids</h2>
-							</div>
-							<div class="col-sm-12">
-								<label class="opt">
-									<input type="checkbox" name="coloredNicks">
-									Enable colored nicknames
-								</label>
-								<label class="opt">
-									<input type="checkbox" name="autocomplete">
-									Enable autocomplete
-								</label>
-							</div>
-							<div class="col-sm-12">
-								<h2>Theme</h2>
-							</div>
-							<div class="col-sm-12">
-								<label for="theme-select" class="sr-only">Theme</label>
-								<select id="theme-select" name="theme" class="input">
-									{{#each themes}}
-										<option value="{{filename}}">
-											{{name}}
-										</option>
-									{{/each}}
-								</select>
-							</div>
-							{{#if prefetch}}
-							<div class="col-sm-12">
-								<h2>Link previews</h2>
-							</div>
-							<div class="col-sm-6">
-								<label class="opt">
-									<input type="checkbox" name="thumbnails">
-									Auto-expand images
-								</label>
-							</div>
-							<div class="col-sm-6">
-								<label class="opt">
-									<input type="checkbox" name="links">
-									Auto-expand websites
-								</label>
-							</div>
-							{{/if}}
-							<div class="col-sm-12">
-								<h2>Notifications</h2>
-							</div>
-							<div class="col-sm-12">
-								<label class="opt">
-								<input id="desktopNotifications" type="checkbox" name="desktopNotifications">
-								Enable desktop notifications<br>
-								<div class="error" id="warnUnsupportedDesktopNotifications">
-									<strong>Warning</strong>:
-									Desktop notifications are not supported by your browser.
+							<div id="messages-tab" class="tab-content active">
+								<div class="col-sm-11">
+									<h1 class="title">Settings - Messages</h1>
 								</div>
-								<div class="error" id="warnBlockedDesktopNotifications">
-									<strong>Warning</strong>:
-									Desktop notifications are blocked by your browser.
+								<div class="col-sm-5">
+									<label class="opt">
+										<input type="checkbox" name="join">
+										Show joins
+									</label>
 								</div>
-								</label>
-							</div>
-							<div class="col-sm-12">
-								<label class="opt">
-								<input type="checkbox" name="notification">
-								Enable notification sound
-								</label>
-							</div>
-							<div class="col-sm-12">
-								<div class="opt">
-									<button id="play">Play sound</button>
+								<div class="col-sm-5">
+									<label class="opt">
+										<input type="checkbox" name="motd">
+										Show <abbr title="Message Of The Day">MOTD</abbr>
+									</label>
+								</div>
+								<div class="col-sm-5">
+									<label class="opt">
+										<input type="checkbox" name="part">
+										Show parts
+									</label>
+								</div>
+								<div class="col-sm-5">
+									<label class="opt">
+										<input type="checkbox" name="nick">
+										Show nick changes
+									</label>
+								</div>
+								<div class="col-sm-5">
+									<label class="opt">
+										<input type="checkbox" name="mode">
+										Show mode
+									</label>
+								</div>
+								<div class="col-sm-5">
+									<label class="opt">
+										<input type="checkbox" name="quit">
+										Show quits
+									</label>
+								</div>
+								<div class="col-sm-5">
+									<label class="opt">
+										<input type="checkbox" name="showSeconds">
+										Show seconds in timestamp
+									</label>
 								</div>
 							</div>
-
-							<div class="col-sm-12">
-								<label class="opt">
-									<input type="checkbox" name="notifyAllMessages">
-									Enable notification for all messages
-								</label>
-							</div>
-
-							<div class="col-sm-12">
-								<label class="opt">
-									<label for="highlights" class="sr-only">Custom highlights (comma-separated keywords)</label>
-									<input type="text" id="highlights" name="highlights" class="input" placeholder="Custom highlights (comma-separated keywords)">
-								</label>
-							</div>
-
-							{{#unless public}}
-								{{#unless ldap.enable}}
-							<div id="change-password">
-								<form action="" method="post">
-									<div class="col-sm-12">
-										<h2>Change password</h2>
-									</div>
-									<div class="col-sm-12">
-										<label for="old_password_input" class="sr-only">Enter current password</label>
-										<input type="password" id="old_password_input" name="old_password" class="input" placeholder="Enter current password">
-									</div>
-									<div class="col-sm-12">
-										<label for="new_password_input" class="sr-only">Enter desired new password</label>
-										<input type="password" id="new_password_input" name="new_password" class="input" placeholder="Enter desired new password">
-									</div>
-									<div class="col-sm-12">
-										<label for="verify_password_input" class="sr-only">Repeat new password</label>
-										<input type="password" id="verify_password_input" name="verify_password" class="input" placeholder="Repeat new password">
-									</div>
-									<div class="col-sm-12 feedback"></div>
-									<div class="col-sm-12">
-										<button type="submit" class="btn">Change password</button>
-									</div>
-								</form>
-							</div>
-								{{/unless}}
-							{{/unless}}
-							<div class="col-sm-12">
+							<div id="visuals-tab" class="tab-content">
+								<div class="col-sm-12">
+									<h1 class="title">Settings - Visuals</h1>
+								</div>
+								<div class="col-sm-12">
+									<label class="opt">
+										<input type="checkbox" name="coloredNicks">
+										Enable colored nicknames
+									</label>
+									<label class="opt">
+										<input type="checkbox" name="autocomplete">
+										Enable autocomplete
+									</label>
+								</div>
+								<div class="col-sm-12">
+									<h2>Theme</h2>
+								</div>
+								<div class="col-sm-12">
+									<label for="theme-select" class="sr-only">Theme</label>
+									<select id="theme-select" name="theme" class="input">
+										{{#each themes}}
+											<option value="{{filename}}">
+												{{name}}
+											</option>
+										{{/each}}
+									</select>
+								</div>
+								{{#if prefetch}}
+								<div class="col-sm-12">
+									<h2>Link previews</h2>
+								</div>
+								<div class="col-sm-6">
+									<label class="opt">
+										<input type="checkbox" name="thumbnails">
+										Auto-expand images
+									</label>
+								</div>
+								<div class="col-sm-6">
+									<label class="opt">
+										<input type="checkbox" name="links">
+										Auto-expand websites
+									</label>
+								</div>
+								{{/if}}
+								<div class="col-sm-12">
 								<h2>Custom Stylesheet</h2>
+								</div>
+								<div class="col-sm-12">
+									<textarea class="input" name="userStyles" id="user-specified-css-input" placeholder="You can override any style with CSS here"></textarea>
+								</div>
 							</div>
-							<div class="col-sm-12">
-								<textarea class="input" name="userStyles" id="user-specified-css-input" placeholder="You can override any style with CSS here"></textarea>
+							<div id="notifications-tab" class="tab-content">
+								<div class="col-sm-12">
+									<h1 class="title">Settings - Notifications</h1>
+								</div>
+								<div class="col-sm-12">
+									<label class="opt">
+									<input id="desktopNotifications" type="checkbox" name="desktopNotifications">
+									Enable desktop notifications<br>
+									<div class="error" id="warnUnsupportedDesktopNotifications">
+										<strong>Warning</strong>:
+										Desktop notifications are not supported by your browser.
+									</div>
+									<div class="error" id="warnBlockedDesktopNotifications">
+										<strong>Warning</strong>:
+										Desktop notifications are blocked by your browser.
+									</div>
+									</label>
+								</div>
+								<div class="col-sm-12">
+									<label class="opt">
+									<input type="checkbox" name="notification">
+									Enable notification sound
+									</label>
+								</div>
+								<div class="col-sm-12">
+									<div class="opt">
+										<button id="play">Play sound</button>
+									</div>
+								</div>
+
+								<div class="col-sm-12">
+									<label class="opt">
+										<input type="checkbox" name="notifyAllMessages">
+										Enable notification for all messages
+									</label>
+								</div>
+
+								<div class="col-sm-12">
+									<label class="opt">
+										<label for="highlights" class="sr-only">Custom highlights (comma-separated keywords)</label>
+										<input type="text" id="highlights" name="highlights" class="input" placeholder="Custom highlights (comma-separated keywords)">
+									</label>
+								</div>
 							</div>
+							{{#unless public}}
+							<div id="account-tab" class="tab-content">
+								<div class="col-sm-12">
+									<h1 class="title">Settings - Account</h1>
+								</div>
+									{{#unless ldap.enable}}
+								<div id="change-password">
+									<form action="" method="post">
+										<div class="col-sm-12">
+											<h2>Change password</h2>
+										</div>
+										<div class="col-sm-12">
+											<label for="old_password_input" class="sr-only">Enter current password</label>
+											<input type="password" id="old_password_input" name="old_password" class="input" placeholder="Enter current password">
+										</div>
+										<div class="col-sm-12">
+											<label for="new_password_input" class="sr-only">Enter desired new password</label>
+											<input type="password" id="new_password_input" name="new_password" class="input" placeholder="Enter desired new password">
+										</div>
+										<div class="col-sm-12">
+											<label for="verify_password_input" class="sr-only">Repeat new password</label>
+											<input type="password" id="verify_password_input" name="verify_password" class="input" placeholder="Repeat new password">
+										</div>
+										<div class="col-sm-12 feedback"></div>
+										<div class="col-sm-12">
+											<button type="submit" class="btn">Change password</button>
+										</div>
+									</form>
+								</div>
+									{{/unless}}
+							</div>
+							{{/unless}}
 						</div>
 					</div>
 				</div>

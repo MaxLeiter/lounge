@@ -143,3 +143,20 @@ if (("Notification" in window)) {
 	desktopNotificationsCheckbox.attr("disabled", true);
 	desktopNotificationsCheckbox.attr("checked", false);
 }
+
+// Tabs
+
+$(".tab-button").on("click", (e) => {
+	const target = $(e.target);
+	if (target.hasClass("active")) {
+		return;
+	} else {
+		$(".tab-button.active").removeClass("active");
+		$(".tab-content.active").hide();
+		$(".tab-content.active").removeClass("active");
+
+		target.addClass("active");
+		$("#" + target.text().toLowerCase() + "-tab").addClass("active");
+		$("#" + target.text().toLowerCase() + "-tab").show();
+	}
+});
