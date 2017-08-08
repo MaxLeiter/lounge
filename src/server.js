@@ -437,6 +437,7 @@ function auth(data) {
 	}
 
 	const authCallback = (success) => {
+		console.log("success:", success)
 		// Authorization failed
 		if (!success) {
 			socket.emit("auth", {success: false});
@@ -446,6 +447,7 @@ function auth(data) {
 		// If authorization succeeded but there is no loaded user,
 		// load it and find the user again (this happens with LDAP)
 		if (!client) {
+			console.log("!client: ", "true")
 			manager.loadUser(data.user);
 			client = manager.findClient(data.user);
 		}
@@ -458,6 +460,8 @@ function auth(data) {
 	// We have found an existing user and client has provided a token
 	if (client && data.token && typeof client.config.sessions[data.token] !== "undefined") {
 		client.updateSession(data.token, getClientIp(socket.request), socket.request);
+		console.log("token:", data.token);
+		console.log("config.sessions[token]:", client.config.sessions[data.token]);
 
 		authCallback(true);
 		return;
