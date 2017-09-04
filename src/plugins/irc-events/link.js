@@ -8,6 +8,11 @@ const findLinks = require("../../../client/js/libs/handlebars/ircmessageparser/f
 const es = require("event-stream");
 const storage = require("../storage");
 
+const youtube = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/gi; // https://stackoverflow.com/a/10315969
+const gfycat = /(?:http:|https:|)(?:\/\/|)(?:gfycat\.com\/(?:\w*\/)*)(\w+$)/gi; // https://gist.github.com/oburt/0e7d7a5ab8c6e54c24ff#file-regex_gfycat
+const instagram = /(?:http:|https:|)(?:\/\/|)(?:instagr\.am|instagram\.com)\/p\/([\w-]+)\//gi; // https://gist.github.com/oburt/0e7d7a5ab8c6e54c24ff#file-regex_instagram
+const twitter = /(?:http:|https:|)(?:\/\/|)(?:twitter\.com\/(\w*)\/(?:(status)es\/|\w*\/)*)(\d+$)/gi; // https://gist.github.com/oburt/0e7d7a5ab8c6e54c24ff#file-regex_twitter
+
 process.setMaxListeners(0);
 
 module.exports = function(client, chan, msg) {
@@ -33,6 +38,7 @@ module.exports = function(client, chan, msg) {
 		body: "",
 		thumb: "",
 		link: link,
+		embed: "", // for extra information necessary to embed
 		shown: true,
 	})).slice(0, 5); // Only preview the first 5 URLs in message to avoid abuse
 
@@ -135,10 +141,37 @@ function emitPreview(client, msg, preview) {
 		}
 	}
 
+	preview.type = getMediaType(preview);
+
+	if (preview.type === "youtube") {
+		preview.embed = getYoutubeId(preview.link);
+	} else if (preview.type === "gfycat") {
+		preview.embed = getGfycatId(preview.link);
+	}
+
 	client.emit("msg:preview", {
 		id: msg.id,
 		preview: preview
 	});
+}
+
+function getMediaType(preview) {
+	let type = preview.type;
+	const types = {youtube, gfycat, instagram, twitter};
+	const res = Object.keys(types).find((key) => types[key].test(preview.link));
+	type = (res !== undefined) ? res : type;
+
+	return type;
+}
+
+function getYoutubeId(url) {
+	const match = url.match(youtube);
+	return match ? RegExp.$1 : false;
+}
+
+function getGfycatId(url) {
+	const match = url.match(gfycat);
+	return match ? RegExp.$1 : false;
 }
 
 function fetch(uri, cb) {

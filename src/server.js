@@ -199,7 +199,7 @@ function index(req, res, next) {
 		"connect-src 'self' ws: wss:",
 		"style-src * 'unsafe-inline'",
 		"script-src 'self'",
-		"child-src 'self'",
+		"child-src *",
 		"object-src 'none'",
 		"form-action 'none'",
 	];
