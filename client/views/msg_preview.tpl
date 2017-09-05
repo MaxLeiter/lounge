@@ -16,8 +16,8 @@
 		</div>
 	{{/equal}}
 	{{#equal type "twitter"}}
-		<div class="toggle-video-wrapper">
-		</div>
+		test
+		{{type.embed}}
 	{{/equal}}
 	{{#equal type "link"}}
 		<a class="toggle-text" href="{{link}}" target="_blank" rel="noopener">

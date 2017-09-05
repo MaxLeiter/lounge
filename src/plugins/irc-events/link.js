@@ -147,7 +147,12 @@ function emitPreview(client, msg, preview) {
 		preview.embed = getYoutubeId(preview.link);
 	} else if (preview.type === "gfycat") {
 		preview.embed = getGfycatId(preview.link);
+	} else if (preview.type === "twitter") {
+		preview.embed = getTweetHtml(preview.link, function(response) {
+			 return response;
+		});
 	}
+ 	console.log(preview.embed)
 
 	client.emit("msg:preview", {
 		id: msg.id,
@@ -172,6 +177,17 @@ function getYoutubeId(url) {
 function getGfycatId(url) {
 	const match = url.match(gfycat);
 	return match ? RegExp.$1 : false;
+}
+
+function getTweetHtml(url, callback) {
+	request(`https://publish.twitter.com/oembed?url=${url}`, (error, response, body) => {
+		if (response.statusCode === 200) {
+			console.log("request")
+			callback(JSON.parse(body).html);
+		} else {
+			console.log(`Error: ${error}`);
+		}
+	});
 }
 
 function fetch(uri, cb) {
