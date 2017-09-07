@@ -16,8 +16,7 @@
 		</div>
 	{{/equal}}
 	{{#equal type "twitter"}}
-		test
-		{{type.embed}}
+		{{{embed}}}
 	{{/equal}}
 	{{#equal type "link"}}
 		<a class="toggle-text" href="{{link}}" target="_blank" rel="noopener">

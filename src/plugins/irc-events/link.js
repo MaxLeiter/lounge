@@ -119,9 +119,22 @@ function parse(msg, preview, res, client) {
 }
 
 function handlePreview(client, msg, preview, res) {
+	preview.type = getMediaType(preview);
+	if (preview.type === "youtube") {
+		preview.embed = getYoutubeId(preview.link);
+	} else if (preview.type === "gfycat") {
+		preview.embed = getGfycatId(preview.link);
+	} else if (preview.type === "twitter") {
+		getTweetHtml(preview.link, function(response) {
+			preview.embed = response;
+		});
+		console.log(preview.embed)
+	}
+
 	if (!preview.thumb.length || !Helper.config.prefetchStorage) {
 		return emitPreview(client, msg, preview);
 	}
+
 
 	storage.store(res.data, res.type.replace("image/", ""), (uri) => {
 		preview.thumb = uri;
@@ -141,17 +154,6 @@ function emitPreview(client, msg, preview) {
 		}
 	}
 
-	preview.type = getMediaType(preview);
-
-	if (preview.type === "youtube") {
-		preview.embed = getYoutubeId(preview.link);
-	} else if (preview.type === "gfycat") {
-		preview.embed = getGfycatId(preview.link);
-	} else if (preview.type === "twitter") {
-		preview.embed = getTweetHtml(preview.link, function(response) {
-			 return response;
-		});
-	}
  	console.log(preview.embed)
 
 	client.emit("msg:preview", {
@@ -182,7 +184,6 @@ function getGfycatId(url) {
 function getTweetHtml(url, callback) {
 	request(`https://publish.twitter.com/oembed?url=${url}`, (error, response, body) => {
 		if (response.statusCode === 200) {
-			console.log("request")
 			callback(JSON.parse(body).html);
 		} else {
 			console.log(`Error: ${error}`);
