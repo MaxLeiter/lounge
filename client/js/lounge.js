@@ -17,10 +17,13 @@ const render = require("./render");
 require("./socket-events");
 const storage = require("./localStorage");
 const utils = require("./utils");
+const modes = require("./libs/handlebars/modes");
 require("./autocompletion");
 require("./webpush");
 require("./keybinds");
 require("./clipboard");
+
+window.$ = window.JQuery = $;
 
 $(function() {
 	var sidebar = $("#sidebar, #footer");
@@ -78,9 +81,10 @@ $(function() {
 		var output = "";
 
 		if (target.hasClass("user")) {
+			const nick = target.text();
 			output = templates.contextmenu_item({
 				class: "user",
-				text: target.text(),
+				text: nick,
 				data: target.data("name"),
 			});
 		} else if (target.hasClass("chan")) {

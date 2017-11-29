@@ -8,6 +8,7 @@ var lastMessageId = -1;
 
 module.exports = {
 	inputCommands: {collapse, expand, join},
+	findUserMode,
 	findCurrentNetworkChan,
 	serverHash,
 	lastMessageId,
@@ -20,6 +21,11 @@ module.exports = {
 	toggleNotificationMarkers,
 	requestIdleCallback,
 };
+
+function findUserMode(nick) {
+	const mode = $(".names-original").find(`[data-name="${nick}"]`).data("mode");
+	return mode;
+}
 
 function findCurrentNetworkChan(name) {
 	name = name.toLowerCase();
