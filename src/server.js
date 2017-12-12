@@ -58,6 +58,11 @@ module.exports = function() {
 		log.warn("Server is public and set to use LDAP. Set to private mode if trying to use LDAP authentication.");
 	}
 
+	if (config.prefetchMaxImageSize) { // TODO: Remove in v3.0.0
+		log.warn(`${colors.bold("prefetchMaxImageSize")} is ${colors.bold.red("deprecated")} and will be removed in The Lounge v3.0.0. Use the ${colors.bold("prefetchMaxMediaSize")} option instead.`);
+		config.prefetchMaxMediaSize = config.prefetchMaxImageSize;
+	}
+
 	if (!config.https.enable) {
 		server = require("http");
 		server = server.createServer(app);
