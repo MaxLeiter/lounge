@@ -58,6 +58,10 @@ module.exports = function() {
 		log.warn("Server is public and set to use LDAP. Set to private mode if trying to use LDAP authentication.");
 	}
 
+	if (config.prefetchMaxImageSize) { // TODO: Remove in v3.0.0
+		log.warn("prefetchMaxImageSize has been removed as of v2.7.0. Use the new prefetchMaxMediaSize option instead.");
+	}
+
 	if (!config.https.enable) {
 		server = require("http");
 		server = server.createServer(app);

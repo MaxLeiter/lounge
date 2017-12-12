@@ -80,7 +80,7 @@ function parse(msg, preview, res, client) {
 			fetch(escapeHeader(preview.thumb), (resThumb) => {
 				if (resThumb === null
 				|| !(/^image\/.+/.test(resThumb.type))
-				|| resThumb.size > (Helper.config.prefetchMaxImageSize * 1024)) {
+				|| resThumb.size > (Helper.config.prefetchMaxMediaSize * 1024)) {
 					preview.thumb = "";
 				}
 
@@ -97,7 +97,7 @@ function parse(msg, preview, res, client) {
 	case "image/jpg":
 	case "image/jpeg":
 	case "image/webp":
-		if (res.size > (Helper.config.prefetchMaxImageSize * 1024)) {
+		if (res.size > (Helper.config.prefetchMaxMediaSize * 1024)) {
 			return;
 		}
 
@@ -159,7 +159,7 @@ function fetch(uri, cb) {
 
 	const buffers = [];
 	let length = 0;
-	let limit = Helper.config.prefetchMaxImageSize * 1024;
+	let limit = Helper.config.prefetchMaxMediaSize * 1024;
 
 	req
 		.on("response", function(res) {
