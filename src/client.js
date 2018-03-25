@@ -68,6 +68,7 @@ const inputs = [
 function Client(manager, name, config = {}) {
 	_.merge(this, {
 		awayMessage: config.awayMessage || "",
+		autoAway
 		lastActiveChannel: -1,
 		attachedClients: {},
 		config: config,
@@ -178,7 +179,6 @@ Client.prototype.connect = function(args) {
 
 	args.ip = args.ip || (client.config && client.config.ip) || client.ip;
 	args.hostname = args.hostname || (client.config && client.config.hostname) || client.hostname;
-
 	const network = new Network({
 		uuid: args.uuid,
 		name: args.name || (Helper.config.displayNetwork ? "" : Helper.config.defaults.name) || "",

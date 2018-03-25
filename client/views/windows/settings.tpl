@@ -29,6 +29,20 @@
 			<p class="sync-warning-override"><strong>Warning</strong> Checking this box will override the settings of this client with those stored on the server.</p>
 			<p class="sync-warning-base"><strong>Warning</strong> No settings have been synced before. Enabling this will sync all settings of this client as the base for other clients.</p>
 		</div>
+		<div class="col-sm-12" data-advanced>
+			<h2>
+				Automatic away
+			</h2>
+			<label class="opt">
+				<input type="checkbox" name="autoAwayToggle">
+				Automatically set me as away when no clients are connected.
+			</label>
+			<label class="opt">
+				<label for="autoAwayMessage" class="sr-only">Default auto-away message</label>
+				<input type="text" id="autoAwayMessage" name="autoAwayMessage" class="input" placeholder="Away message">
+			</label>
+
+		</div>
 		{{/unless}}
 		<div class="col-sm-12">
 			<h2>Messages</h2>

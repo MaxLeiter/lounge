@@ -233,10 +233,12 @@ function noServerSettings() {
 function processSetting(name, value, save) {
 	if (name === "userStyles") {
 		$settings.find("#user-specified-css-input").val(value);
-	} else if (name === "highlights") {
+	} else if (name === "highlights" || name === "nickPostfix") {
 		$settings.find(`input[name=${name}]`).val(value);
-	} else if (name === "nickPostfix") {
-		$settings.find(`input[name=${name}]`).val(value);
+	} else if (name === "autoAwayMessage") {
+		if ($settings.find(`input[name=${name}]`).val() === "") {
+
+		}
 	} else if (name === "statusMessages") {
 		$settings.find(`input[name=${name}][value=${value}]`)
 			.prop("checked", true);

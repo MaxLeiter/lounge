@@ -466,6 +466,10 @@ function initializeClient(socket, client, token, lastMessage) {
 					value: newSetting.value,
 				});
 
+				if (newSetting.name === "autoAwayMessage" || newSetting.name === "autoAwayToggle") {
+					
+				}
+
 				client.manager.updateUser(client.name, {
 					clientSettings: client.config.clientSettings,
 				});
