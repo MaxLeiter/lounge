@@ -12,6 +12,7 @@ module.exports = class ContextMenu {
 
 		contextMenuContainer = $("#context-menu-container");
 		contextMenu = $("#context-menu");
+		contextMenu.attr("role", "menu");
 	}
 
 	show() {

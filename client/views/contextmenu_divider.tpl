@@ -1,1 +1,1 @@
-<li class="context-menu-divider" />
+<li class="context-menu-divider" role="none"/>
