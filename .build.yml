@@ -1,0 +1,17 @@
+image: archlinux
+packages:
+  - nodejs
+  - yarn
+environment:
+  build_env: production
+  project: thelounge
+sources:
+  - https://git.sr.ht/~maxleiter/thelounge#srht
+tasks:
+  - prepare: |
+      cd ${project}
+      yarn
+      NODE_ENV=${build_env} yarn build
+  - test: |
+      cd ${project}
+      yarn test
