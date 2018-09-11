@@ -114,5 +114,5 @@ fork.
 Before submitting any change, make sure to:
 
 - Read the [Contributing instructions](https://github.com/thelounge/thelounge/blob/master/.github/CONTRIBUTING.md#contributing)
-- Run `npm test` to execute linters and test suite
-- Run `npm run build` if you change or add anything in `client/js` or `client/views`
+- Run `yarn test` to execute linters and test suite
+- Run `yarn build` if you change or add anything in `client/js` or `client/views`
