@@ -1757,6 +1757,12 @@ part/quit messages where we don't load previews (adds a blank line otherwise) */
 	margin-top: 0.2em;
 }
 
+#settings [data-advanced] h2::after {
+	float:  right;
+	content:  "Advanced";
+	opacity: 0.6;
+}
+
 .password-container {
 	position: relative;
 }
